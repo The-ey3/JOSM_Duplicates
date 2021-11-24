@@ -1,0 +1,111 @@
+#JOSM_Duplicates
+//note  Replace with Square brakets "[ ] " finder and helper ("Which is common tag(Key: ) present(anyone_key:)") : Helper and ("Which tag(Key: ) has to find Duplicates " ) : finder //
+function current_layer() 
+{
+    var layers = require("josm/layers");
+    return layers.activeLayer;
+}
+
+function [Which is common tag(Key: ) present(anyone_key:)]_duplicate_check()
+ {
+
+  var nb = require("josm/builder").NodeBuilder;
+  var node = nb.create();
+  var layer = current_layer(); 
+  var util = require("josm/util");
+  var command = require("josm/command");
+  var console = require("josm/scriptingconsole");
+  var arr = []; //node
+  var arrways = []; //way
+  var arrrel = [];
+  var dataset = layer.data;
+  var dataset1 = layer.data;
+  var dataset2 = layer.data;
+  if (layer == null) return;
+  var result = dataset.query("type:node");
+  var result1 = dataset1.query("type:way");
+  var result2 = dataset2.query("type:relation");
+  var counter = 0;
+  
+  
+  function node_[Which is common tag(Key: ) present(anyone_key:)]()
+  {
+    for (j = 0; j < result.length; j++)
+	 {
+	  var way = result[j];
+	  var node_comment1 = way.get ("[Which is common tag(Key: ) present(anyone_key:)]");
+	  var node_comment2 = way.get ("[Which tag(Key: ) has to find Duplicates ]");
+		
+	  if (node_comment1 != null)
+	  arr.push(node_comment2);
+		
+	 if (node_comment2 == null )continue;
+	 }
+  }
+  node_[Which is common tag(Key: ) present(anyone_key:)](); 
+
+  function ways_[Which is common tag(Key: ) present(anyone_key:)]()
+  {
+    for (k=0; k<result1.length; k++)
+	 {
+	  var way = result1[k];
+	  var way_comment1 = way.get (""Which is common tag(Key: ) present(anyone_key:)"");
+	  var way_comment2 = way.get ("Which tag(Key: ) has to find Duplicates ");
+	
+	 
+	  if (way_comment1 != null)
+	   arrways.push(way_comment2);
+	 
+	  if (way_comment2 == null) continue;
+	 }
+  }
+  ways_[Which is common tag(Key: ) present(anyone_key:)]();
+
+function rel_[Which is common tag(Key: ) present(anyone_key:)]()
+{
+for (l=0;l<result2.length;l++)
+ {
+  var relation = result2[l];
+  var rel_comment1 = relation.get(""Which is common tag(Key: ) present(anyone_key:)"");
+  var rel_comment2 = relation.get("Which tag(Key: ) has to find Duplicates ");
+    if (rel_comment1 != null)
+	   arrrel.push(rel_comment2);
+	 
+	  if (rel_comment2 == null) continue;
+	 }
+  }
+rel_[Which is common tag(Key: ) present(anyone_key:)]();
+
+    var arr22 = arr.concat(arrways)
+    var finalarr = arr22.concat(arrrel);
+    var len = finalarr.length, out=[], counts={};
+    var console = require("josm/scriptingconsole");
+    var i;
+
+  for (i=0;i<len;i++) 
+   {
+     var item = finalarr[i];
+     counts[item] = counts[item] >= 1 ? counts[item] + 1 : 1;
+      if (counts[item] == 2) 
+	   {
+        out.push(item);
+		counter++;
+       }
+	
+   }
+  
+  if ( counter >0 && out != "")
+  {
+	  console.println("Duplicate [Which is common tag(Key: ) present(anyone_key:)] found: " +out);
+	  josm.alert("Duplicate [Which is common tag(Key: ) present(anyone_key:)] found. UniquesID are " +out+ ". Run the script in console for more info");
+  }
+  else
+  {
+	  console.println("No duplicate [Which is common tag(Key: ) present(anyone_key:)] found");
+	  josm.alert("No duplicate [Which is common tag(Key: ) present(anyone_key:)] found");
+  }
+  return out;
+  
+}
+
+[Which is common tag(Key: ) present(anyone_key:)]_duplicate_check();
